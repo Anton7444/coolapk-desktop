@@ -169,6 +169,7 @@ const defaultSettings: AppSettings = {
   desktopNotifications: false,
   androidBackgroundNotifications: false,
   notificationSound: true,
+  autoTraditional: true,
   notificationPollInterval: 1,
   externalLinkMode: 'internal',
   timeDisplay: 'relative',
@@ -320,6 +321,7 @@ export function normalizeSettings(value: unknown): AppSettings {
   result.desktopNotifications = readBoolean(source.desktopNotifications, result.desktopNotifications);
   result.androidBackgroundNotifications = readBoolean(source.androidBackgroundNotifications, result.androidBackgroundNotifications);
   result.notificationSound = readBoolean(source.notificationSound, result.notificationSound);
+  result.autoTraditional = readBoolean(source.autoTraditional, result.autoTraditional);
   result.notificationPollInterval = [1, 5, 10, 30].includes(Number(source.notificationPollInterval)) ? Number(source.notificationPollInterval) : result.notificationPollInterval;
   result.blockedKeywords = Array.isArray(source.blockedKeywords) ? [...new Set(source.blockedKeywords.filter((item): item is string => typeof item === 'string' && item.trim().length > 0))] : result.blockedKeywords;
   result.publishDeviceSignature = readBoolean(source.publishDeviceSignature, result.publishDeviceSignature);

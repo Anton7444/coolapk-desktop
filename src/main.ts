@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, watch } from 'vue';
 import { createPinia } from 'pinia';
 import { getCurrent, onOpenUrl } from '@tauri-apps/plugin-deep-link';
 import { getCurrentWindow } from '@tauri-apps/api/window';
@@ -11,6 +11,7 @@ import { useSettingsStore } from './stores/settings';
 import { setupGlobalAlertProxy } from './utils/toast';
 import { normalizeCoolapkDeepLink } from './utils/coolapkRoute';
 import { installDiagnosticLogging, logDiagnostic, logDiagnosticLimited, summarizeDiagnosticError } from './utils/diagnosticLogger';
+import { setAutoTraditional } from './utils/traditionalChinese';
 import { isResizeObserverWarning } from './utils/windowError';
 
 // 启动全局原生 alert 代理拦截，统一呈现顶部高质感 Toast
@@ -140,6 +141,8 @@ async function bootstrap() {
   await settingsStore.initializeSettings();
   logDiagnostic('info', 'app', 'settings-ready');
   app.mount('#app');
+  // 簡體 → 繁體自動轉換：掛載後立即處理首屏，之後由 MutationObserver 持續轉換動態內容。
+  watch(() => settingsStore.settings.autoTraditional, (enabled) => setAutoTraditional(enabled), { immediate: true, flush: 'post' });
   // 设置文件在应用挂载前读取；缩放等依赖 #app 的外观设置需在挂载后再应用一次。
   settingsStore.applyAppearance();
   await setupDeepLinkHandling();

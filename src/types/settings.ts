@@ -184,6 +184,7 @@ export interface AppSettings {
   desktopNotifications: boolean;
   androidBackgroundNotifications: boolean;
   notificationSound: boolean;
+  autoTraditional: boolean;
   notificationPollInterval: number;
   externalLinkMode: ExternalLinkMode;
   timeDisplay: TimeDisplayMode;

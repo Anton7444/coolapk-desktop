@@ -154,6 +154,17 @@
     </div>
 
     <div class="setting-group">
+      <h4 class="group-title">语言</h4>
+      <div class="setting-row">
+        <div class="row-info">
+          <span class="row-label">自动转换为繁体中文</span>
+          <span class="row-sub">将界面、动态正文、评论等简体中文自动显示为繁体；输入框内容不会被转换</span>
+        </div>
+        <AppSwitch v-model="settingsStore.settings.autoTraditional" />
+      </div>
+    </div>
+
+    <div class="setting-group">
       <h4 class="group-title">链接</h4>
       <div class="setting-row">
         <div class="row-info">
